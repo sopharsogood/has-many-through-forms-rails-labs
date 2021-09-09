@@ -5,4 +5,23 @@
     <%= category.name %><br>
 <% end %>
 
-<input name="post[categories_attributes][0][name]" id="post_categories_attributes_0_name">
+<% @post.comments.each do |comment| %>
+    <p><%= comment.user.username %> says: <%= comment.content %></p>
+<% end %>
+
+Commenters:
+
+<% @post.users.uniq.each do |user| %>
+    <p><%= link_to user.username, user_path(user) %></p>
+<% end %>
+
+<br><br>
+Create New Comment:<br>
+
+<%= form_for @comment do |f| %>
+    <%= f.text_field :content %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+    <input type="text" name="comment[user_attributes][username]" id="comment_user_attributes_username">
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.submit %>
+<% end %>
