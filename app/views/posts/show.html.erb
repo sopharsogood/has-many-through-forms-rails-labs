@@ -4,3 +4,5 @@
 <% @post.categories.each do |category| %>
     <%= category.name %><br>
 <% end %>
+
+<input name="post[categories_attributes][0][name]" id="post_categories_attributes_0_name">
